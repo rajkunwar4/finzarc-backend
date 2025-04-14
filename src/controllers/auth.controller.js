@@ -30,7 +30,13 @@ export const register = async (req, res) => {
 
     //generate token
     const token = generateToken({ id: user.id, email: user.email })
-    res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV !== 'development', maxAge: 30 * 24 * 60 * 60 * 1000 })
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development',
+      sameSite: process.env.NODE_ENV !== 'development' ? 'None' : 'Lax',
+      maxAge: 30 * 24 * 60 * 60 * 1000
+    });
+    
     
 
     //return success response
@@ -68,7 +74,13 @@ export const login = async (req, res) => {
 
     //generate token
     const token = generateToken({ id: user.id, email: user.email })
-    res.cookie('token', token, { httpOnly: true, secure: process.env.NODE_ENV !== 'development', maxAge: 30 * 24 * 60 * 60 * 1000 })
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV !== 'development',
+      sameSite: process.env.NODE_ENV !== 'development' ? 'None' : 'Lax',
+      maxAge: 30 * 24 * 60 * 60 * 1000
+    });
+    
 
 
     //return success response
